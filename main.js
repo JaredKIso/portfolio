@@ -78,6 +78,30 @@ document.querySelectorAll('.js-email').forEach((el) => {
   if (el.hasAttribute('data-show-address')) el.querySelector('.js-email-text').textContent = address;
 });
 
+// Dot on the contact card looks up when the Email button is hovered or focused, and hops in its
+// party hat when it's clicked.
+const perchDot = document.querySelector('.dot-perch .dot');
+const contactEmail = document.querySelector('.contact .js-email');
+if (perchDot && contactEmail) {
+  const char = perchDot.querySelector('.dot-char');
+  let settle;
+  const setMood = (mood) => { if (perchDot.dataset.mood !== 'offer') perchDot.dataset.mood = mood; };
+  contactEmail.addEventListener('pointerenter', () => setMood('attention'));
+  contactEmail.addEventListener('focus', () => setMood('attention'));
+  contactEmail.addEventListener('pointerleave', () => setMood('calm'));
+  contactEmail.addEventListener('blur', () => setMood('calm'));
+  contactEmail.addEventListener('click', () => {
+    perchDot.dataset.mood = 'offer';
+    char.classList.remove('dot-hop');
+    char.getBoundingClientRect(); // restart the hop on repeat clicks
+    char.classList.add('dot-hop');
+    clearTimeout(settle);
+    settle = setTimeout(() => {
+      perchDot.dataset.mood = contactEmail.matches(':hover, :focus-visible') ? 'attention' : 'calm';
+    }, 2600);
+  });
+}
+
 // Hide the video caption while it plays.
 const video = document.querySelector('.feature__media video');
 if (video) {

@@ -122,6 +122,21 @@
       </header>
 
       <article class="feature card card--elevated reveal">
+        <div class="dot-peek" aria-hidden="true">
+          <div class="dot-peek__clip">
+            <svg class="dot" viewBox="0 0 48 48" data-mood="attention">
+              <g class="dot-char">
+                <circle class="dot-body" cx="24" cy="28" r="14"/>
+                <ellipse class="dot-shine" cx="18.6" cy="20.6" rx="4.4" ry="2.6" transform="rotate(-28 18.6 20.6)"/>
+                <g class="face face--attention">
+                  <g class="dot-eyes"><ellipse class="dot-ink" cx="21.2" cy="25" rx="1.9" ry="2.6"/><ellipse class="dot-ink" cx="30" cy="25" rx="1.9" ry="2.6"/></g>
+                  <path class="dot-line" d="M23.4 31.8 q2.6 1.6 5.2 -0.4"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <span class="dot-paw"></span><span class="dot-paw dot-paw--r"></span>
+        </div>
         <div class="feature__media">
           <video controls preload="none" playsinline poster="assets/dothub-poster.jpg" aria-label="One-minute tour of DotHub, running on demo data">
             <source src="assets/dothub-tour.mp4" type="video/mp4">
@@ -136,6 +151,7 @@
             <li><span class="ms" aria-hidden="true">check_circle</span>A 29-check security scan runs against the live site after every deploy</li>
             <li><span class="ms" aria-hidden="true">check_circle</span>189 automated tests and GitHub Actions CI; each release ships as a tagged image with a health check</li>
             <li><span class="ms" aria-hidden="true">check_circle</span>Profiled for page weight: about 70 KB less JavaScript per page</li>
+            <li><span class="ms" aria-hidden="true">check_circle</span>Dot, the mascot peeking over this card: its mood follows the day's search, and it earns accessories for milestones like a first follow-up</li>
           </ul>
           <div class="chips">
             <span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">SQLite</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span><span class="chip">Fly.io</span>
@@ -224,6 +240,33 @@
           <p>I'm based in Colorado Springs and looking for remote roles in the US. Email is the fastest way to reach me.</p>
         </div>
         <div class="contact__actions">
+          <div class="dot-perch" aria-hidden="true">
+            <svg class="dot" viewBox="0 0 48 48" data-mood="calm">
+              <g class="dot-char">
+                <circle class="dot-body" cx="24" cy="28" r="14"/>
+                <ellipse class="dot-shine" cx="18.6" cy="20.6" rx="4.4" ry="2.6" transform="rotate(-28 18.6 20.6)"/>
+                <g class="face face--calm">
+                  <g class="dot-eyes"><ellipse class="dot-ink" cx="19.6" cy="26" rx="1.9" ry="2.4"/><ellipse class="dot-ink" cx="28.4" cy="26" rx="1.9" ry="2.4"/></g>
+                  <path class="dot-line" d="M21 31.4 q3 2.4 6 0"/>
+                </g>
+                <g class="face face--attention">
+                  <g class="dot-eyes"><ellipse class="dot-ink" cx="21.2" cy="25" rx="1.9" ry="2.6"/><ellipse class="dot-ink" cx="30" cy="25" rx="1.9" ry="2.6"/></g>
+                  <path class="dot-line" d="M23.4 31.8 q2.6 1.6 5.2 -0.4"/>
+                </g>
+                <g class="face face--offer">
+                  <path class="dot-line" d="M17.4 26.4 q2.2 -3 4.4 0 M26.2 26.4 q2.2 -3 4.4 0"/>
+                  <circle class="dot-cheek" cx="15.6" cy="30.6" r="1.9"/>
+                  <circle class="dot-cheek" cx="32.4" cy="30.6" r="1.9"/>
+                  <path class="dot-ink" d="M19.6 30.4 q4.4 6.2 8.8 0 z"/>
+                </g>
+                <g class="party-hat" transform="rotate(-14 24 16)">
+                  <path d="M17.6 16.6 L24 2.6 L30.4 16.6 Z"/>
+                  <path class="hat-stripes" d="M19.4 12.6 L28.6 12.6 M21.2 8.6 L26.8 8.6"/>
+                  <circle cx="24" cy="2.8" r="2.1"/>
+                </g>
+              </g>
+            </svg>
+          </div>
           <!-- The address is assembled by main.js so scrapers reading the HTML don't find it; without JS this falls back to LinkedIn. -->
           <a class="btn btn--on-primary js-email" href="https://www.linkedin.com/in/jared-kell/" target="_blank" rel="noopener" data-u="xf.llekderaj" data-d="moc.liamg" data-show-address><span class="ms" aria-hidden="true">mail</span><span class="js-email-text">Message me on LinkedIn</span></a>
           <div class="contact__links">

@@ -13,6 +13,12 @@
   --tone-c-bg: #ffddb3; --tone-c-fg: #7c5800;   /* amber */
   --tone-d-bg: #9df2ee; --tone-d-fg: #00504e;   /* teal */
 
+  /* Dot, DotHub's mascot, in DotHub's own colours. */
+  --dot-body: oklch(0.56 0.12 166);
+  --dot-ink: #ffffff;
+  --dot-warn: oklch(0.62 0.15 70);
+  --dot-danger: oklch(0.58 0.2 25);
+
   --bg: #f5fbfa;
   --surface: #ffffff;
   --surface-1: #eff5f4;
@@ -54,6 +60,11 @@
     --tone-c-bg: #5e4200; --tone-c-fg: #ffddb3;
     --tone-d-bg: #00504e; --tone-d-fg: #9df2ee;
 
+    --dot-body: oklch(0.8 0.13 166);
+    --dot-ink: #07140f;
+    --dot-warn: oklch(0.8 0.15 75);
+    --dot-danger: oklch(0.68 0.19 25);
+
     --bg: #0e1514;
     --surface: #161d1c;
     --surface-1: #1a2120;
@@ -84,6 +95,11 @@
   --tone-b-bg: #42368f; --tone-b-fg: #e3dfff;
   --tone-c-bg: #5e4200; --tone-c-fg: #ffddb3;
   --tone-d-bg: #00504e; --tone-d-fg: #9df2ee;
+
+  --dot-body: oklch(0.8 0.13 166);
+  --dot-ink: #07140f;
+  --dot-warn: oklch(0.8 0.15 75);
+  --dot-danger: oklch(0.68 0.19 25);
 
   --bg: #0e1514;
   --surface: #161d1c;
@@ -366,6 +382,66 @@ main { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
 .contact__actions { display: grid; gap: 12px; }
 .contact__actions .btn { width: 100%; }
 .contact__links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* Dot, ported from DotHub's components/dot. Idle it blinks now and then; on an Email click it hops
+   and puts on the party hat. With reduced motion it still changes face, it just doesn't move. */
+.dot { overflow: visible; display: block; }
+.dot-body { fill: var(--dot-body); }
+.dot-shine { fill: #fff; opacity: .22; }
+.dot-ink { fill: var(--dot-ink); }
+.dot-line { fill: none; stroke: var(--dot-ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.dot-cheek { fill: var(--dot-danger); opacity: .35; }
+.dot-char, .dot-eyes { transform-box: fill-box; }
+.dot-eyes { transform-origin: center; }
+.dot-char { transform-origin: 50% 100%; }
+.dot .face, .dot .party-hat { display: none; }
+.dot[data-mood="calm"] .face--calm,
+.dot[data-mood="attention"] .face--attention,
+.dot[data-mood="offer"] .face--offer,
+.dot[data-mood="offer"] .party-hat { display: inline; }
+
+/* Peeking over the top edge of the DotHub card, paws on the edge. */
+#projects .section__head { margin-bottom: 56px; }
+.dot-peek { position: absolute; right: 56px; bottom: 100%; width: 64px; height: 46px; pointer-events: none; }
+.dot-peek__clip { position: absolute; inset: 0; overflow: hidden; }
+.dot-peek .dot {
+  position: absolute; top: 0; left: 0; width: 64px; height: 64px;
+  transform: translateY(2px);
+  transition: transform .5s var(--ease-emph);
+}
+.feature:hover .dot-peek .dot { transform: translateY(-4px); }
+.dot-paw {
+  position: absolute; bottom: -5px; left: 15px;
+  width: 11px; height: 10px; border-radius: 50%;
+  background: var(--dot-body);
+}
+.dot-paw--r { left: 38px; }
+
+/* Perched on the contact card's Email button, outlined like a sticker so it reads on the teal. */
+.contact__actions { position: relative; padding-top: 48px; }
+.dot-perch { position: absolute; top: -5px; right: 28px; width: 60px; height: 60px; pointer-events: none; }
+.dot-perch .dot { width: 100%; height: 100%; }
+.dot-perch .dot-body { stroke: var(--on-primary); stroke-width: 2.4; }
+.party-hat path:first-child { fill: var(--dot-warn); }
+.party-hat .hat-stripes { fill: none; stroke: var(--dot-danger); stroke-width: 1.4; opacity: .7; }
+.party-hat circle { fill: var(--dot-danger); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .dot[data-mood="calm"] .dot-eyes,
+  .dot[data-mood="attention"] .dot-eyes { animation: dot-blink 6.5s ease-in-out infinite; }
+  .dot-hop { animation: dot-hop 640ms cubic-bezier(.23, 1, .32, 1); }
+}
+@keyframes dot-blink {
+  0%, 94%, 100% { transform: scaleY(1); }
+  96.5% { transform: scaleY(.12); }
+}
+@keyframes dot-hop {
+  0% { transform: none; }
+  30% { transform: translateY(-16%) scale(.96, 1.04); }
+  60% { transform: scale(1.06, .94); }
+  80% { transform: scale(.98, 1.02); }
+  100% { transform: none; }
+}
 
 /* Footer */
 .footer {
