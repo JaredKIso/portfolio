@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jared Kell · Support → Data Engineering</title>
+  <meta name="description" content="Jared Kell: support engineer moving into data engineering. Four years of production incidents in SQL Server, cloud networking and endpoint security, plus a self-hosted Linux stack.">
+  <meta property="og:title" content="Jared Kell · Support → Data Engineering">
+  <meta property="og:description" content="Production incidents by day, self-hosted infrastructure by night. Case studies, projects and contact.">
+  <meta property="og:image" content="assets/dothub-poster.jpg">
+  <meta name="theme-color" content="#f5fbfa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1514" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0..1,0&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    document.documentElement.classList.add('js');
+    try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="appbar">
+    <div class="appbar__inner">
+      <a class="brand" href="#top" aria-label="Jared Kell, back to top">
+        <span class="brand__mark">JK</span>
+        <span class="brand__name">Jared Kell</span>
+      </a>
+      <nav class="nav" aria-label="Sections">
+        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <span class="ms" aria-hidden="true">dark_mode</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__copy">
+        <span class="chip chip--status"><span class="dot" aria-hidden="true"></span>Open to remote roles · US</span>
+        <h1>I find the real root cause, then build the tool so nobody has to find it by hand again.</h1>
+        <p class="lede">Support engineer moving into data engineering. Four years resolving production incidents in SQL Server, cloud networking and endpoint security for critical-infrastructure customers, backed by a self-hosted Linux stack I design and run outside of work.</p>
+        <div class="actions">
+          <a class="btn btn--filled" href="#work"><span class="ms" aria-hidden="true">arrow_downward</span>See the work</a>
+          <a class="btn btn--tonal js-email" href="#contact" data-u="xf.llekderaj" data-d="moc.liamg"><span class="ms" aria-hidden="true">mail</span>Email me</a>
+        </div>
+      </div>
+
+      <aside class="hero__panel card card--elevated" aria-label="At a glance">
+        <div class="panel__head">
+          <span class="ms" aria-hidden="true">monitoring</span>
+          <span>At a glance</span>
+        </div>
+        <ul class="stats">
+          <li>
+            <span class="stat__value">53.5M <span class="arrow">→</span> &lt;1M</span>
+            <span class="stat__label">files in a backup backlog, cleared in one maintenance window</span>
+          </li>
+          <li>
+            <span class="stat__value">189</span>
+            <span class="stat__label">automated tests on DotHub, my full-stack job-search app</span>
+          </li>
+          <li>
+            <span class="stat__value">11 <span class="stat__unit">services</span> · 0 <span class="stat__unit">open ports</span></span>
+            <span class="stat__label">self-hosted, Cloudflare Tunnel as the only way in</span>
+          </li>
+          <li>
+            <span class="stat__value">4 <span class="stat__unit">yrs</span></span>
+            <span class="stat__label">on production incidents, up to Severity 1</span>
+          </li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Case study -->
+    <section class="section" id="work">
+      <header class="section__head reveal">
+        <p class="overline">Case study · Tek Knowledge</p>
+        <h2>A 53.5 million-file backlog that wasn't index corruption</h2>
+        <p class="section__sub">A state electric-grid operator's Carbon Black App Control server had a backup backlog of 53.5M files. The earlier diagnosis said the database index was corrupt. The logs said otherwise.</p>
+      </header>
+
+      <ol class="steps">
+        <li class="card card--outlined step reveal">
+          <span class="step__icon tone-a"><span class="ms" aria-hidden="true">report</span></span>
+          <h3>The problem</h3>
+          <p>Backups had stalled at critical-infrastructure scale. A prior diagnosis blamed index corruption, which would have meant a long, risky rebuild.</p>
+        </li>
+        <li class="card card--outlined step reveal">
+          <span class="step__icon tone-b"><span class="ms" aria-hidden="true">manage_search</span></span>
+          <h3>The diagnosis</h3>
+          <p>Reading the SQL Server logs directly showed the service account was missing <strong>7 permissions</strong>, and maintenance flags were stuck. The index was fine.</p>
+        </li>
+        <li class="card card--outlined step reveal">
+          <span class="step__icon tone-c"><span class="ms" aria-hidden="true">build</span></span>
+          <h3>The fix</h3>
+          <p>Grant the missing permissions, clear the stuck flags, and let the backlog drain in a single maintenance window.</p>
+        </li>
+        <li class="card card--filled step step--result reveal">
+          <span class="step__icon tone-d"><span class="ms" aria-hidden="true">trending_down</span></span>
+          <h3>The result</h3>
+          <p class="big-metric">53.5M <span class="arrow">→</span> &lt;1M</p>
+          <p>Backlog under one million files after one window, with no rebuild.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Featured project -->
+    <section class="section" id="projects">
+      <header class="section__head reveal">
+        <p class="overline">Featured project</p>
+        <h2>DotHub: a job-search dashboard I designed, built and run</h2>
+      </header>
+
+      <article class="feature card card--elevated reveal">
+        <div class="feature__media">
+          <video controls preload="none" playsinline poster="assets/dothub-poster.jpg" aria-label="One-minute tour of DotHub, running on demo data">
+            <source src="assets/dothub-tour.mp4" type="video/mp4">
+          </video>
+          <span class="media__caption"><span class="ms" aria-hidden="true">play_circle</span>1-minute tour · demo data</span>
+        </div>
+        <div class="feature__body">
+          <p>A scheduled bot scores new postings; the app tracks applications, follow-ups, interviews and offers. I built it end to end and run it in production on my own Linux host.</p>
+          <ul class="checks">
+            <li><span class="ms" aria-hidden="true">check_circle</span>TypeScript, Next.js, React and SQLite, in Docker behind Cloudflare Tunnel</li>
+            <li><span class="ms" aria-hidden="true">check_circle</span>Password + TOTP sign-in, recovery codes, rate limiting, encrypted off-site backups</li>
+            <li><span class="ms" aria-hidden="true">check_circle</span>A 29-check security scan runs against the live site after every deploy</li>
+            <li><span class="ms" aria-hidden="true">check_circle</span>189 automated tests and GitHub Actions CI; each release ships as a tagged image with a health check</li>
+            <li><span class="ms" aria-hidden="true">check_circle</span>Profiled for page weight: about 70 KB less JavaScript per page</li>
+          </ul>
+          <div class="chips">
+            <span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">SQLite</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span><span class="chip">Fly.io</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- More projects -->
+      <div class="grid">
+        <article class="card card--outlined project reveal">
+          <div class="project__top">
+            <span class="step__icon tone-b"><span class="ms" aria-hidden="true">dataset</span></span>
+            <a class="icon-btn" href="https://github.com/JaredKIso/CareerHub" target="_blank" rel="noopener" aria-label="CareerHub on GitHub"><span class="ms" aria-hidden="true">open_in_new</span></a>
+          </div>
+          <h3>CareerHub</h3>
+          <p>A versioned, append-only data store for a career, where every resume is a <em>selection</em> over the data, not a copy. JSON Schema contracts define every shape, and an audit flags any number in the prose that isn't in the bullet's metrics.</p>
+          <div class="chips"><span class="chip">Python stdlib</span><span class="chip">JSON Schema</span><span class="chip">Agent tooling</span></div>
+        </article>
+
+        <article class="card card--outlined project reveal">
+          <div class="project__top">
+            <span class="step__icon tone-c"><span class="ms" aria-hidden="true">terminal</span></span>
+            <span class="tag">Internal tool</span>
+          </div>
+          <h3>Log triage tool</h3>
+          <p>A PowerShell tool that scans up to 25 Carbon Black App Control logs at once and pulls out the most repeated errors, their codes, timestamps and counts, plus any IP addresses. It writes 4 structured files, including a master diagnosis summary.</p>
+          <div class="chips"><span class="chip">PowerShell</span><span class="chip">Log analysis</span></div>
+        </article>
+
+        <article class="card card--outlined project reveal">
+          <div class="project__top">
+            <span class="step__icon tone-a"><span class="ms" aria-hidden="true">dns</span></span>
+            <span class="tag">Since 2023</span>
+          </div>
+          <h3>Self-hosted service stack</h3>
+          <p>11 services from one Docker Compose file, non-root containers and env-file secrets, with Cloudflare Tunnel as the only ingress. I migrated one service's PostgreSQL to a VectorChord build for vector search, and pinned images to major tags after an unpinned pull broke it.</p>
+          <div class="chips"><span class="chip">Linux</span><span class="chip">Docker Compose</span><span class="chip">PostgreSQL</span><span class="chip">Cloudflare</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="section" id="experience">
+      <header class="section__head reveal">
+        <p class="overline">Experience</p>
+        <h2>Where I've done it</h2>
+      </header>
+
+      <div class="timeline">
+        <article class="card card--outlined role reveal">
+          <div class="role__meta"><span class="role__when">Sep 2024 – Present</span><span class="role__where">Colorado Springs, CO</span></div>
+          <h3>Technical Support Engineer II <span class="at">· Tek Knowledge</span></h3>
+          <p>Carbon Black Cloud, App Control and EDR for US critical-infrastructure and public-sector customers running 100 to 5,000 endpoints. I own 10–15 cases a month end to end, including Severity 1 incidents handed off across time zones, and diagnose sensor connectivity failures across TLS inspection and certificate trust with curl and packet-level evidence.</p>
+        </article>
+        <article class="card card--outlined role reveal">
+          <div class="role__meta"><span class="role__when">Sep 2022 – Sep 2024</span><span class="role__where">Colorado Springs, CO</span></div>
+          <h3>Technical Support Engineer II, Azure Developer Support <span class="at">· Tek Experts</span></h3>
+          <p>Resolved Azure API Management and web app failures by reading platform logs and tracing request paths through NSGs, firewalls and gateway policy. Used PowerShell, Bash and SQL daily, and trained teammates on Azure fundamentals and log reading.</p>
+        </article>
+        <article class="card card--outlined role reveal">
+          <div class="role__meta"><span class="role__when">Jan 2022 – Jun 2022</span><span class="role__where">Mountain View, CA</span></div>
+          <h3>QA Engineer <span class="at">· Virtusa</span></h3>
+          <p>Tested autonomous air-quality robots in client buildings, analysing device logs and escalating reproducible defects with evidence. Wrote a Bash script that automated the daily test-rig setup.</p>
+        </article>
+        <article class="card card--outlined role reveal">
+          <div class="role__meta"><span class="role__when">Jun 2021 – Oct 2021</span><span class="role__where">Colorado Springs, CO</span></div>
+          <h3>Cyber Security Engineering Program <span class="at">· SecureSet Academy</span></h3>
+          <p>Four-month immersive certificate: cryptography, threat intelligence, networking, systems administration and system security.</p>
+        </article>
+      </div>
+
+      <div class="skills reveal">
+        <div class="skills__group"><h3>Data</h3><div class="chips"><span class="chip">SQL Server</span><span class="chip">T-SQL</span><span class="chip">PostgreSQL</span><span class="chip">SQLite</span></div></div>
+        <div class="skills__group"><h3>Cloud &amp; infra</h3><div class="chips"><span class="chip">Azure</span><span class="chip">Docker / Compose</span><span class="chip">Linux</span><span class="chip">Cloudflare Tunnel</span></div></div>
+        <div class="skills__group"><h3>Languages</h3><div class="chips"><span class="chip">SQL</span><span class="chip">PowerShell</span><span class="chip">Bash</span><span class="chip">TypeScript</span><span class="chip">Python</span></div></div>
+        <div class="skills__group"><h3>Security</h3><div class="chips"><span class="chip">Carbon Black</span><span class="chip">EDR</span><span class="chip">TLS / certificates</span><span class="chip">NSGs &amp; firewalls</span></div></div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact">
+      <div class="contact card card--primary reveal">
+        <div>
+          <p class="overline">Contact</p>
+          <h2>Have a data or support engineering role in mind?</h2>
+          <p>I'm based in Colorado Springs and looking for remote roles in the US. Email is the fastest way to reach me.</p>
+        </div>
+        <div class="contact__actions">
+          <!-- The address is assembled by main.js so scrapers reading the HTML don't find it; without JS this falls back to LinkedIn. -->
+          <a class="btn btn--on-primary js-email" href="https://www.linkedin.com/in/jared-kell/" target="_blank" rel="noopener" data-u="xf.llekderaj" data-d="moc.liamg" data-show-address><span class="ms" aria-hidden="true">mail</span><span class="js-email-text">Message me on LinkedIn</span></a>
+          <div class="contact__links">
+            <a class="btn btn--outline-on-primary" href="https://www.linkedin.com/in/jared-kell/" target="_blank" rel="noopener"><span class="ms" aria-hidden="true">badge</span>LinkedIn</a>
+            <a class="btn btn--outline-on-primary" href="https://github.com/JaredKIso" target="_blank" rel="noopener"><span class="ms" aria-hidden="true">code</span>GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year">2026</span> Jared Kell</p>
+    <a href="#top" class="footer__top"><span class="ms" aria-hidden="true">arrow_upward</span>Back to top</a>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
