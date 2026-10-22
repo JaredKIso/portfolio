@@ -32,8 +32,8 @@
         <span class="brand__name">Jared Kell</span>
       </a>
       <nav class="nav" aria-label="Sections">
-        <a href="#projects">Projects</a>
         <a href="#case-studies">Case studies</a>
+        <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -52,7 +52,7 @@
         <h1>I find the real root cause, then build the tool so nobody has to find it by hand again.</h1>
         <p class="lede">Support engineer moving into platform and data engineering. Four years resolving production incidents in SQL Server, cloud networking and endpoint security for critical-infrastructure customers, backed by a self-hosted Linux stack I design and run outside of work.</p>
         <div class="actions">
-          <a class="btn btn--filled" href="#projects"><span class="ms" aria-hidden="true">arrow_downward</span>See the work</a>
+          <a class="btn btn--filled" href="#case-studies"><span class="ms" aria-hidden="true">arrow_downward</span>See the work</a>
           <a class="btn btn--tonal js-email" href="#contact" data-u="xf.llekderaj" data-d="moc.liamg"><span class="ms" aria-hidden="true">mail</span>Email me</a>
         </div>
       </div>
@@ -81,6 +81,61 @@
           </li>
         </ul>
       </aside>
+    </section>
+
+    <!-- Case studies -->
+    <section class="section" id="case-studies">
+      <header class="section__head reveal">
+        <p class="overline">Case study · DotHub</p>
+        <h2>A "flaky" build that was really a race condition</h2>
+        <p class="section__sub">The first Docker build of DotHub, my job-search app (featured below), failed at random, and a retry usually passed. Retrying until it goes green is the easy answer. The error message pointed at something real.</p>
+      </header>
+
+      <ol class="steps">
+        <li class="card card--outlined step reveal">
+          <span class="step__icon tone-a"><span class="ms" aria-hidden="true">report</span></span>
+          <h3>The problem</h3>
+          <p>Some builds stopped with <code>SQLITE_BUSY: database is locked</code> while collecting page data. It depended on timing, so it looked like noise.</p>
+        </li>
+        <li class="card card--outlined step reveal">
+          <span class="step__icon tone-b"><span class="ms" aria-hidden="true">manage_search</span></span>
+          <h3>The diagnosis</h3>
+          <p>The build imports every route, so <strong>15 workers</strong> opened the same fresh SQLite file at once and raced to switch it to WAL mode. The losers failed, even with a 5-second busy timeout.</p>
+        </li>
+        <li class="card card--outlined step reveal">
+          <span class="step__icon tone-c"><span class="ms" aria-hidden="true">build</span></span>
+          <h3>The fix</h3>
+          <p>During the build, each worker gets its own empty, migrated in-memory database. The build has no data to read, so there's nothing to share.</p>
+        </li>
+        <li class="card card--filled step step--result reveal">
+          <span class="step__icon tone-d"><span class="ms" aria-hidden="true">verified</span></span>
+          <h3>The result</h3>
+          <p class="big-metric">15 <span class="arrow">→</span> 0</p>
+          <p>Workers sharing a database file during the build, so the lock can't happen. A 9-line change.</p>
+        </li>
+      </ol>
+
+      <div class="minis">
+        <article class="card card--outlined mini reveal">
+          <div class="project__top">
+            <span class="step__icon tone-b"><span class="ms" aria-hidden="true">backup</span></span>
+            <span class="tag">DotHub</span>
+          </div>
+          <h3>Backups that left junk behind</h3>
+          <p>SQLite's backup API wrote each copy in WAL mode, and the read-only connection that checked it couldn't clean up its <code class="nowrap">-wal</code> and <code class="nowrap">-shm</code> files on close. Every day left an orphaned pair that pruning never removed. The check now switches the copy to a rollback journal first, and old leftovers get swept, with tests.</p>
+          <p class="mini__metric"><span class="ms" aria-hidden="true">inventory_2</span>1 self-contained file per backup</p>
+        </article>
+
+        <article class="card card--outlined mini reveal">
+          <div class="project__top">
+            <span class="step__icon tone-c"><span class="ms" aria-hidden="true">speed</span></span>
+            <span class="tag">DotHub</span>
+          </div>
+          <h3>Hunting a leak, finding weight</h3>
+          <p>Thousands of requests with forced garbage collection and heap-snapshot diffs, plus 30 laps of in-browser navigation, found no memory leak. They did find a validation library riding into the browser, a Markdown renderer loading on every page, and a rate limiter that grew with every one-off visitor.</p>
+          <p class="mini__metric"><span class="ms" aria-hidden="true">trending_down</span>442 → 371 KB of JavaScript on the main page</p>
+        </article>
+      </div>
     </section>
 
     <!-- Featured project -->
@@ -160,61 +215,6 @@
           <h3>Self-hosted service stack</h3>
           <p>11 services from one Docker Compose file, non-root containers and env-file secrets, with Cloudflare Tunnel as the only ingress. I migrated one service's PostgreSQL to a VectorChord build for vector search, and pinned images to major tags after an unpinned pull broke it.</p>
           <div class="chips"><span class="chip">Linux</span><span class="chip">Docker Compose</span><span class="chip">PostgreSQL</span><span class="chip">Cloudflare</span></div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Case studies -->
-    <section class="section" id="case-studies">
-      <header class="section__head reveal">
-        <p class="overline">Case study · DotHub</p>
-        <h2>A "flaky" build that was really a race condition</h2>
-        <p class="section__sub">DotHub's first Docker build failed at random, and a retry usually passed. Retrying until it goes green is the easy answer. The error message pointed at something real.</p>
-      </header>
-
-      <ol class="steps">
-        <li class="card card--outlined step reveal">
-          <span class="step__icon tone-a"><span class="ms" aria-hidden="true">report</span></span>
-          <h3>The problem</h3>
-          <p>Some builds stopped with <code>SQLITE_BUSY: database is locked</code> while collecting page data. It depended on timing, so it looked like noise.</p>
-        </li>
-        <li class="card card--outlined step reveal">
-          <span class="step__icon tone-b"><span class="ms" aria-hidden="true">manage_search</span></span>
-          <h3>The diagnosis</h3>
-          <p>The build imports every route, so <strong>15 workers</strong> opened the same fresh SQLite file at once and raced to switch it to WAL mode. The losers failed, even with a 5-second busy timeout.</p>
-        </li>
-        <li class="card card--outlined step reveal">
-          <span class="step__icon tone-c"><span class="ms" aria-hidden="true">build</span></span>
-          <h3>The fix</h3>
-          <p>During the build, each worker gets its own empty, migrated in-memory database. The build has no data to read, so there's nothing to share.</p>
-        </li>
-        <li class="card card--filled step step--result reveal">
-          <span class="step__icon tone-d"><span class="ms" aria-hidden="true">verified</span></span>
-          <h3>The result</h3>
-          <p class="big-metric">15 <span class="arrow">→</span> 0</p>
-          <p>Workers sharing a database file during the build, so the lock can't happen. A 9-line change.</p>
-        </li>
-      </ol>
-
-      <div class="minis">
-        <article class="card card--outlined mini reveal">
-          <div class="project__top">
-            <span class="step__icon tone-b"><span class="ms" aria-hidden="true">backup</span></span>
-            <span class="tag">DotHub</span>
-          </div>
-          <h3>Backups that left junk behind</h3>
-          <p>SQLite's backup API wrote each copy in WAL mode, and the read-only connection that checked it couldn't clean up its <code class="nowrap">-wal</code> and <code class="nowrap">-shm</code> files on close. Every day left an orphaned pair that pruning never removed. The check now switches the copy to a rollback journal first, and old leftovers get swept, with tests.</p>
-          <p class="mini__metric"><span class="ms" aria-hidden="true">inventory_2</span>1 self-contained file per backup</p>
-        </article>
-
-        <article class="card card--outlined mini reveal">
-          <div class="project__top">
-            <span class="step__icon tone-c"><span class="ms" aria-hidden="true">speed</span></span>
-            <span class="tag">DotHub</span>
-          </div>
-          <h3>Hunting a leak, finding weight</h3>
-          <p>Thousands of requests with forced garbage collection and heap-snapshot diffs, plus 30 laps of in-browser navigation, found no memory leak. They did find a validation library riding into the browser, a Markdown renderer loading on every page, and a rate limiter that grew with every one-off visitor.</p>
-          <p class="mini__metric"><span class="ms" aria-hidden="true">trending_down</span>442 → 371 KB of JavaScript on the main page</p>
         </article>
       </div>
     </section>
