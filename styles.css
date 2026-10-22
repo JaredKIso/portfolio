@@ -424,11 +424,10 @@ main { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
 }
 .dot-paw--r { left: 38px; }
 
-/* Perched on the contact card's Email button, outlined like a sticker so it reads on the teal. */
+/* Perched on the contact card's Email button, with a soft shadow so it lifts off the teal. */
 .contact__actions { position: relative; padding-top: 48px; }
 .dot-perch { position: absolute; top: -15px; right: 28px; width: 72px; height: 72px; pointer-events: none; }
-.dot-perch .dot { width: 100%; height: 100%; }
-.dot-perch .dot-body { stroke: var(--on-primary); stroke-width: 2.4; }
+.dot-perch .dot { width: 100%; height: 100%; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .28)); }
 .party-hat path:first-child { fill: var(--dot-warn); }
 .party-hat .hat-stripes { fill: none; stroke: var(--dot-danger); stroke-width: 1.4; opacity: .7; }
 .party-hat circle { fill: var(--dot-danger); }
