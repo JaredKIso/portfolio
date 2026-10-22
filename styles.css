@@ -332,6 +332,24 @@ main { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
 .step--result .step__icon { background: var(--on-primary-container); color: var(--primary-container); }
 .step .big-metric { font: 700 30px/1.2 var(--mono); margin-bottom: 8px; opacity: 1; letter-spacing: -0.03em; }
 
+.step code, .mini code {
+  font: 600 .88em/1.4 var(--mono);
+  background: var(--surface-2); color: var(--on-surface);
+  padding: 1px 5px; border-radius: 5px;
+}
+code.nowrap { white-space: nowrap; }
+
+/* Smaller case studies under the lead one */
+.minis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.mini { display: flex; flex-direction: column; gap: 12px; }
+.mini h3 { font-size: 20px; font-weight: 700; }
+.mini > p:not(.mini__metric) { color: var(--on-surface-variant); font-size: 15px; flex: 1; }
+.mini__metric {
+  display: flex; align-items: center; gap: 8px;
+  font: 700 15px/1.4 var(--mono); color: var(--primary);
+  padding-top: 12px; border-top: 1px solid var(--outline-variant);
+}
+
 /* Feature */
 .feature {
   display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
@@ -475,7 +493,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
 /* Responsive */
 @media (max-width: 1000px) {
   .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .grid { grid-template-columns: 1fr; }
+  .grid, .minis { grid-template-columns: 1fr; }
   .feature { grid-template-columns: 1fr; }
   .feature__body { padding: 8px; }
   .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
