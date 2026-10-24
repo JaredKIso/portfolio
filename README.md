@@ -8,6 +8,9 @@ Jared Kell's one-page portfolio, live at **https://portfolio.jarediso.com**. Pla
 - `assets/`: the DotHub tour video and its poster frame
 - `design-prompt.md`: the design brief the page was built from
 - `CNAME`: the custom domain, written by GitHub Pages
+- `404.html`: the not-found page GitHub Pages serves for any missing path (root-relative links)
+- `og-image.png`: the link-preview image, a 1200×630 screenshot of the hero
+- `sitemap.xml`, `robots.txt`: for search engines; regenerate if pages are added
 
 ## Run locally
 

@@ -23,16 +23,18 @@ const onScroll = () => appbar.classList.toggle('is-scrolled', window.scrollY > 8
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
-// Highlight the nav link for the section in view.
-const links = [...document.querySelectorAll('.nav a')];
-const sections = links.map((a) => document.querySelector(a.getAttribute('href')));
+// Highlight the nav link for the section in view. The 404 page links to /#section, so only
+// watch links whose section is on this page.
+const sectionLinks = [...document.querySelectorAll('.nav a')]
+  .map((a) => ({ a, url: new URL(a.href) }))
+  .filter(({ url }) => url.hash && url.pathname === location.pathname && document.getElementById(url.hash.slice(1)));
 const navObserver = new IntersectionObserver((entries) => {
   entries.forEach((e) => {
     if (!e.isIntersecting) return;
-    links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === '#' + e.target.id));
+    sectionLinks.forEach(({ a, url }) => a.classList.toggle('is-active', url.hash === '#' + e.target.id));
   });
 }, { rootMargin: '-45% 0px -50% 0px' });
-sections.forEach((s) => navObserver.observe(s));
+sectionLinks.forEach(({ url }) => navObserver.observe(document.getElementById(url.hash.slice(1))));
 
 // Cards rise in as they enter the viewport, staggered within a row.
 const reveals = document.querySelectorAll('.reveal');
@@ -110,4 +112,5 @@ if (video) {
   video.addEventListener('pause', () => media.classList.remove('is-playing'));
 }
 
-document.getElementById('year').textContent = new Date().getFullYear();
+const year = document.getElementById('year');
+if (year) year.textContent = new Date().getFullYear();
